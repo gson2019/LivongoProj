@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         long endTime = cal.getTimeInMillis();
         Log.d(TAG, sdf.format(endTime));
-        cal.add(Calendar.DAY_OF_YEAR, -10);
+        cal.add(Calendar.DAY_OF_YEAR, -13);
         final long startTime = cal.getTimeInMillis();
         Log.d(TAG, sdf.format(startTime));
         DataReadRequest readRequest = new DataReadRequest.Builder()
