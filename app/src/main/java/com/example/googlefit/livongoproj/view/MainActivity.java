@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "StepCounter";
     private static final int REQUEST_OAUTH_REQUEST_CODE = 0x1001;
     private GoogleSignInAccount gsa;
-    private boolean toggle = false;
+    private boolean toggle_chronological = false;
     private FitnessOptions fitnessOptions;
     private RecyclerView mRecyclerView;
     private ArrayList<DailyWalk> mDailyWalks;
@@ -174,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
                     requestPermission();
                 } else {
                     readData();
+                    if(toggle_chronological){
+                        toggle_chronological = !toggle_chronological;
+                    }
                 }
                 return true;
             case R.id.action_update_data:
@@ -182,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     if(dailyWalkListAdapter != null && !this.mDailyWalks.isEmpty()) {
                         ArrayList<DailyWalk> newDailyWalks = new ArrayList<>(this.mDailyWalks);
-                        // Conditionally sort the dailywalk list based on toggle value
+                        // Conditionally sort the dailywalk list based on toggle_chronological value
                         Collections.sort(newDailyWalks, new Comparator<DailyWalk>() {
                             @Override
                             public int compare(DailyWalk dailywalk1, DailyWalk dailywalk2) {
@@ -190,14 +193,14 @@ public class MainActivity extends AppCompatActivity {
                                 Calendar cal2 = Calendar.getInstance();
                                 cal1.setTimeInMillis(dailywalk1.getStartTime());
                                 cal2.setTimeInMillis(dailywalk2.getStartTime());
-                                if (toggle) {
+                                if (toggle_chronological) {
                                     return cal1.compareTo(cal2);
                                 } else {
                                     return cal2.compareTo(cal1);
                                 }
                             }
                         });
-                        toggle = !toggle;
+                        toggle_chronological = !toggle_chronological;
                         dailyWalkListAdapter.updateDailyWalkList(newDailyWalks);
                     }else{
                         Toast.makeText(MainActivity.this, "No Daily Walk data record", Toast.LENGTH_LONG).show();
