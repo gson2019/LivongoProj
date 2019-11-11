@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -110,11 +111,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void readData() {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 23);
-        cal.set(Calendar.MINUTE, 59);
-        cal.set(Calendar.SECOND, 59);
+        Date now = new Date();
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+        cal.setTime(now);
         long endTime = cal.getTimeInMillis();
         Log.d(TAG, sdf.format(endTime));
         cal.add(Calendar.DAY_OF_YEAR, -13);
@@ -174,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                     requestPermission();
                 } else {
                     readData();
-                    if(toggle_chronological){
+                    if(toggle_chronological) {
                         toggle_chronological = !toggle_chronological;
                     }
                 }
