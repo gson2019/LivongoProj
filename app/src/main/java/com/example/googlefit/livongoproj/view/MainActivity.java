@@ -114,7 +114,12 @@ public class MainActivity extends AppCompatActivity {
         Date now = new Date();
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         cal.setTime(now);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.add(Calendar.DAY_OF_YEAR, 1);
         long endTime = cal.getTimeInMillis();
+        String endT = sdf.format(endTime);
         Log.d(TAG, sdf.format(endTime));
         cal.add(Calendar.DAY_OF_YEAR, -13);
         final long startTime = cal.getTimeInMillis();
